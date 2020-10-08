@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,8 @@ public class ChooseAreaFragment extends Fragment {
     public static final int LEVEL_PROVINCE = 0;
     public static final int LEVEL_CITY = 1;
     public static final int LEVEL_COUNTY = 2;
+
+    private static final String TAG_CHOOSE = "ChooseArea";
 
     //UI
     private ProgressBar progressBar;
@@ -122,6 +125,7 @@ public class ChooseAreaFragment extends Fragment {
             }
         });
         queryProvinces();
+        //Log.d(TAG_CHOOSE, "onActivityCreated: ");
     }
     //End of initialization
 
@@ -160,7 +164,7 @@ public class ChooseAreaFragment extends Fragment {
         }
         else{
             int provinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china" + provinceCode;
+            String address = "http://guolin.tech/api/china/" + provinceCode;
             queryFromServer(address, "city");
         }
     }
@@ -181,8 +185,8 @@ public class ChooseAreaFragment extends Fragment {
         else{
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china" + provinceCode + "/" + cityCode;
-            queryFromServer(address, "country");
+            String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
+            queryFromServer(address, "county");
         }
     }
 
@@ -191,6 +195,8 @@ public class ChooseAreaFragment extends Fragment {
         HttpUtil.sendOkHttpRequest(address, new Callback(){
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Log.d(TAG_CHOOSE, "queryFromServer: ");
+
                 String responseText = response.body().string();
                 boolean result = false;
                 if("province".equals(type)){
@@ -223,6 +229,7 @@ public class ChooseAreaFragment extends Fragment {
 
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
