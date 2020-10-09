@@ -28,14 +28,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/aqi_text"
+                    android:layout_gravity="center"
+                    android:textColor="#fff"
+                    android:textSize="40sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="AQI"
-                android:textColor="#fff"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="AQI"
+                    android:textColor="#fff"/>
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
